@@ -11,7 +11,7 @@ int main () {
 	int j = 0;
 	int randomh = 0, part = 1, m = 0, c = 0, lims = n;
 
-	sf::RenderWindow* win = new sf::RenderWindow (sf::VideoMode (256, 256), "bubblesort");
+	sf::RenderWindow* win = new sf::RenderWindow (sf::VideoMode (256, 256), "bubble-sort");
 	sf::Event* evnt = new sf::Event;
 
 	sf::RectangleShape* rectangle = new sf::RectangleShape (sf::Vector2f (4, 178));
@@ -23,8 +23,6 @@ int main () {
 		while (win->pollEvent (*evnt)) {
 			if (evnt->type == sf::Event::Closed) win->close ();
 		}
-
-
 
 		if (part == 1) {
 			for (int i = 0; i < n; i++) {
@@ -47,7 +45,6 @@ int main () {
 
 		for (int i = 0; i < n; i++) {
 			rectangle->setFillColor (sf::Color (69, 69, 69));
-
 			if (i == j) {
 				rectangle->setFillColor (sf::Color (255, 0, 0));
 			}
@@ -72,4 +69,5 @@ int main () {
 	delete evnt;
 
 	return 0;
+
 }
