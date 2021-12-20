@@ -1,6 +1,10 @@
+// number of all lines
 #define n 256
+
+// sfml lib
 #include <SFML/Graphics.hpp>
 
+// data for lines
 struct data {
 	int height;
 	int posx;
@@ -8,9 +12,11 @@ struct data {
 
 int main () {
 
+	// variables
 	int j = 0;
 	int randomh = 0, part = 1, m = 0, r = n;
 
+	// sfml 
 	sf::RenderWindow* win = new sf::RenderWindow (sf::VideoMode (256, 256), "bubble-sort");
 	sf::Event* evnt = new sf::Event;
 
@@ -19,20 +25,23 @@ int main () {
 
 	srand (time (NULL));
 
+	// main loop
 	while (win->isOpen ()) {
 		while (win->pollEvent (*evnt)) {
 			if (evnt->type == sf::Event::Closed) win->close ();
 		}
 
+		// setting random height and posx for every line
 		if (part == 1) {
 			for (int i = 0; i < n; i++) {
 				randomh = 1 + rand () % (256);
 				line[i].posx = i;
 				line[i].height = randomh;
-				if (i == n - 1) { part = 2; };
+				if (i == n - 1) part = 2;
 			}
 		}
 
+		// bubble sort
 		if (part == 2) {
 			if (line[j].height < line[j + 1].height) {
 				m = line[j].height;
@@ -43,11 +52,10 @@ int main () {
 
 		win->clear (sf::Color::Black);
 
+		// visuals
 		for (int i = 0; i < n; i++) {
 			rectangle->setFillColor (sf::Color (0, 255, 100));
-			if (i == j) {
-				rectangle->setFillColor (sf::Color (255, 0, 0));
-			}
+			if (i == j) rectangle->setFillColor (sf::Color (255, 0, 0));
 			rectangle->setPosition (line[i].posx, 256);
 			rectangle->setSize (sf::Vector2f (1, line[i].height));
 			rectangle->setRotation (180);
@@ -68,5 +76,4 @@ int main () {
 	delete evnt;
 
 	return 0;
-
 }
