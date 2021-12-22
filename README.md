@@ -3,7 +3,7 @@ Bubble sort with SFML.
 
 It sorts numbers lol
 
-#1 Input number of elements to sort:
+#1 Input number of elements to sort:<br>
 ![image](https://user-images.githubusercontent.com/72560594/147016877-40126bd7-ae09-4f65-b1e2-b94856b63453.png)
 
 ![image](https://user-images.githubusercontent.com/72560594/147016887-a53c3397-bc7b-4ffb-acd6-4d611e5bb4ff.png)
