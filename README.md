@@ -3,4 +3,8 @@ Bubble sort with SFML.
 
 It sorts numbers lol
 
-![image](https://user-images.githubusercontent.com/72560594/147016814-afb6e840-17ad-4345-8643-ab080bbd3f78.png)
+![image](https://user-images.githubusercontent.com/72560594/147016877-40126bd7-ae09-4f65-b1e2-b94856b63453.png)
+
+![image](https://user-images.githubusercontent.com/72560594/147016887-a53c3397-bc7b-4ffb-acd6-4d611e5bb4ff.png)
+
+![image](https://user-images.githubusercontent.com/72560594/147016910-ca0f4312-6f32-43f3-8e47-05f02406a0db.png)
