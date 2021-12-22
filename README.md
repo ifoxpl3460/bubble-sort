@@ -8,4 +8,5 @@ It sorts numbers lol
 #2 Hit enter:<br>
 ![image](https://user-images.githubusercontent.com/72560594/147016887-a53c3397-bc7b-4ffb-acd6-4d611e5bb4ff.png)<br><br>
 #3 Input another number<br>
-![image](https://user-images.githubusercontent.com/72560594/147016910-ca0f4312-6f32-43f3-8e47-05f02406a0db.png)
+![image](https://user-images.githubusercontent.com/72560594/147016910-ca0f4312-6f32-43f3-8e47-05f02406a0db.png)<br><br>
+#4 n = 1000 to exit program
