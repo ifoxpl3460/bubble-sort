@@ -1,117 +1,58 @@
-/*ifoxpl3460 bubble-sort.cpp*/ 
-
-// libs
+/*ifoxpl3460 bubble-sort.cpp*/
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <Windows.h>
-// data for lines
-struct data {
-	int height, posx;
-};
-// n input, handling wrong inputs
+struct data { int height, posx; };
 int input (int* n) {
-	bool flag = false;
-	while (!flag) {
-		std::cout << "Input n = ";
-		std::cin >> *n;
-		flag = std::cin.good ();
-		// if there is any problem
-		if (!flag) {
-			system ("cls");
-			std::cout << "\nn -> int\n\n";
-			std::cin.clear ();
-			std::cin.ignore ();
-		}
-		else {
-			// 63 < n < 513
-			if (*n > 63 && *n < 513 || *n == 1000) {
-				return *n;
-			}
-			else {
-				system ("cls");
-				std::cout << "\n63 < n < 513\n\n";
-				flag = false;
-			}
-		}
+	std::cout << "Input n = ";
+	std::cin >> *n;
+	if (std::cin.fail () || !(*n > 63 && *n < 513)) {
+		std::cin.clear ();
+		std::cin.ignore (std::numeric_limits <std::streamsize> ::max (), '\n');
+		input (n);
 	}
+	else return *n;
 }
-// main () lol
 int main () {
-	// variables
-	bool flag = false;
-	int counter = 0;
-	int randomh = 0;
-	int	currenth = 0;
-	int* n = new int (0);
-	int	left;
-	// rectangle shape for lines
-	sf::RectangleShape* rectangle = new sf::RectangleShape;
-	// random setup
 	srand (time (NULL));
-	// main loop
-	while (!flag) {
-		*n = input (n);
-		// n = 1000 to exit program
-		if (*n == 1000) {
-			flag = true;
-			continue;
-		}
-		// creates new window and event objects
-		sf::RenderWindow* window = new sf::RenderWindow (sf::VideoMode (*n * 2, *n), "bubble-sort", sf::Style::Close);
-		sf::Event* event = new sf::Event;
-		// create n line data
-		data* line = new data[*n];
-		// setting left var
-		left = *n;
-		// setting random high for each line
-		for (int i = 0; i < *n; i++) {
-			randomh = 1 + rand () % (*n);
-			line[i].posx = i;
-			line[i].height = randomh;
-		}
-		// when window is opened loop
-		while (window->isOpen ()) {
-			while (window->pollEvent (*event)) {
-				// closing program
-				if (event->type == sf::Event::KeyPressed) {
-					if (event->key.code == sf::Keyboard::Escape) window->close ();
-				}
-			}
-			// bubble sort
-			if (line[counter].height < line[counter + 1].height) {
-				currenth = line[counter].height;
-				line[counter].height = line[counter + 1].height;
-				line[counter + 1].height = currenth;
-			}
-			// clearing window
-			window->clear (sf::Color::Black);
-			// visuals
-			for (int i = 0; i < *n; i++) {
-				rectangle->setFillColor (sf::Color::Green);
-				rectangle->setPosition (line[i].posx + line[i - 1].posx + 1, *n);
-				rectangle->setSize (sf::Vector2f (1, line[i].height));
-				rectangle->setRotation (180);
-				window->draw (*rectangle);
-			}
-			// rendering everything
-			window->display ();
-			// part of the sorting thing:
-			counter++;
-			if (counter >= left) {
-				counter = 0;
-				left--;
-			}
-			// closing when finished
-			if (left == 0) {
-				Sleep (5000);
-				window->close ();
-			}
-		}
-		// erasing memory
-		delete[] line;
-		delete window;
-		delete event;
+	short counter = 0, randomh = 0, currenth = 0, left = 0;
+	int* n = new int;
+	*n = input (n);
+	left = *n;
+	data* line = new data[*n];
+	sf::RenderWindow* window = new sf::RenderWindow (sf::VideoMode (*n * 2, *n), "bubble-sort", sf::Style::Close);
+	sf::RectangleShape* rectangle = new sf::RectangleShape ();
+	rectangle->setFillColor (sf::Color::Green);
+	rectangle->setRotation (180);	
+	for (int i = 0; i < *n; i++) {
+		randomh = 1 + rand () % (*n);
+		line[i].posx = i;
+		line[i].height = randomh;
 	}
-	delete rectangle;
+	while (window->isOpen ()) {
+		if (line[counter].height < line[counter + 1].height) {
+			currenth = line[counter].height;
+			line[counter].height = line[counter + 1].height;
+			line[counter + 1].height = currenth;
+		}
+		window->clear (sf::Color::Black);
+		for (int i = 0; i < *n; i++) {
+			rectangle->setPosition (line[i].posx + line[i - 1].posx + 1, *n);
+			rectangle->setSize (sf::Vector2f (1, line[i].height));
+			window->draw (*rectangle);
+		}
+		window->display ();
+		counter++;
+		if (counter >= left) {
+			counter = 0;
+			left--;
+		}
+		if (left == 0) {
+			Sleep (2500);
+			window->close ();
+		}
+	}
+	delete [] line, window, rectangle; // idk if it works
+	system ("pause");
 	return 0;
 }
