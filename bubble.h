@@ -4,7 +4,7 @@
 
 class bubble {
 private:
-	short n; // number of numbers to sort
+	int n; // number of numbers to sort
 	short counter, randomh, currenth, left;
 	struct data { int height, posx; };
 	sf::RenderWindow* window; // sfml window

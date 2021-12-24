@@ -7,7 +7,7 @@ bubble::bubble () {
 	currenth = 0;
 	left = 0;
 	event = new sf::Event;
-	rectangle = new sf::RectangleShape;
+	rectangle = new sf::RectangleShape;	
 }
 
 void bubble::update () {
@@ -21,7 +21,7 @@ void bubble::update () {
 int bubble::input () {
 	std::cout << "Input\t";
 	std::cin >> n;
-	if (std::cin.fail () || !(n > 63 && n < 513 || n == 0) ) {
+	if (std::cin.fail () || !(n > 63 && n < 513 || n == 0)) {
 		std::cin.clear ();
 		std::cin.ignore (std::numeric_limits <std::streamsize> ::max (), '\n');
 		input ();
@@ -44,8 +44,8 @@ void bubble::init () {
 	}
 }
 
-void bubble::render () {			
-	window->clear (sf::Color::Black);
+void bubble::render () {
+	window->clear (sf::Color::Black);	
 	for (int i = 0; i < n; i++) {
 		rectangle->setPosition (line[i].posx + line[i - 1].posx + 1, n);
 		rectangle->setSize (sf::Vector2f (1, line[i].height));
@@ -59,14 +59,14 @@ void bubble::render () {
 	}
 }
 
-void bubble::sort () {	
-	if (left > 0) {	
+void bubble::sort () {
+	if (left > 0) {
 		if (line[counter].height < line[counter + 1].height) {
 			currenth = line[counter].height;
 			line[counter].height = line[counter + 1].height;
 			line[counter + 1].height = currenth;
 		}
-	}	
+	}
 }
 
 void bubble::cmemory () {
