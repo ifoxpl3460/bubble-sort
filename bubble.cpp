@@ -44,8 +44,7 @@ void bubble::init () {
 	}
 }
 
-void bubble::render () {	
-			
+void bubble::render () {			
 	window->clear (sf::Color::Black);
 	for (int i = 0; i < n; i++) {
 		rectangle->setPosition (line[i].posx + line[i - 1].posx + 1, n);
@@ -67,8 +66,7 @@ void bubble::sort () {
 			line[counter].height = line[counter + 1].height;
 			line[counter + 1].height = currenth;
 		}
-	}
-	
+	}	
 }
 
 void bubble::cmemory () {

@@ -1,26 +1,23 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <chrono>
-#include <thread>
 #include <iostream>
 
 class bubble {
 private:
-	short n;
+	short n; // number of numbers to sort
 	short counter, randomh, currenth, left;
 	struct data { int height, posx; };
-	sf::RenderWindow* window;
-	sf::Event* event;
-	sf::RectangleShape* rectangle;
-	data* line;
+	sf::RenderWindow* window; // sfml window
+	sf::Event* event; // event obj
+	sf::RectangleShape* rectangle; // rectangle for drawing lines
+	data* line; // data for lines
 public:
-	bubble ();
-	void update ();
-	void render ();
-	void init ();	
-	int input ();	
-	void events ();
-	void sort ();
-	void cmemory ();
-	
+	bubble (); // constructor
+	void update (); // updating everything
+	void render (); // rendering lines
+	void init (); // initialization
+	int input (); // get input from user
+	void events (); // handling events
+	void sort (); // bubble sort
+	void cmemory (); // clearing memory
 };
