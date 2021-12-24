@@ -1,8 +1,6 @@
 /*ifoxpl3460 bubble-sort.cpp*/
 #include "bubble.h"
 
-
-
 int main () {
 	srand (time (NULL));
 	bubble* _bubble = new bubble;
