@@ -51,6 +51,7 @@ int main () {
 			Sleep (2500);
 			window->close ();
 		}
+		
 	}
 	delete [] line, window, rectangle; // idk if it works
 	system ("pause");
