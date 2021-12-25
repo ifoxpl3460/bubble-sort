@@ -7,12 +7,16 @@ bubble::bubble () {
 	currenth = 0;
 	left = 0;
 	event = new sf::Event;
-	rectangle = new sf::RectangleShape;	
+	rectangle = new sf::RectangleShape;
+	_ui = new ui;
 }
+
+// main
 
 void bubble::update () {
 	while (window->isOpen ()) {
-		sort ();
+		sortlines ();
+		updateui ();
 		render ();
 		events ();
 	}
@@ -27,39 +31,50 @@ int bubble::input () {
 		input ();
 	}
 	else {
+		delete window;
 		left = n;
-		window = new sf::RenderWindow (sf::VideoMode (n * 2, n), "bubble-sort");
+		window = new sf::RenderWindow (sf::VideoMode (n * 2, n), "bubble-sort", sf::Style::Close);
 		line = new data[n];
 		return n;
 	}
 }
 
 void bubble::init () {
-	rectangle->setFillColor (sf::Color::Green);
-	rectangle->setRotation (180);
-	for (int i = 0; i < n; i++) {
-		randomh = 1 + rand () % (n);
-		line[i].posx = i;
-		line[i].height = randomh;
-	}
+	initui ();
+	initlines ();
 }
+
+// engine
 
 void bubble::render () {
-	window->clear (sf::Color::Black);	
-	for (int i = 0; i < n; i++) {
-		rectangle->setPosition (line[i].posx + line[i - 1].posx + 1, n);
-		rectangle->setSize (sf::Vector2f (1, line[i].height));
-		window->draw (*rectangle);
-	}
+	window->clear (sf::Color::Black);
+	renderlines ();
+	renderui ();
 	window->display ();
-	counter++;
-	if (counter >= left) {
-		counter = 0;
-		left--;
+}
+
+void bubble::cmemory () {
+	delete window;
+	delete event;
+	delete[] line;
+	delete[] rectangle;
+	delete _ui;
+}
+
+void bubble::events () {
+	while (window->pollEvent (*event)) {
+		switch (event->type) {
+		case sf::Event::Closed:
+			text.clear ();
+			window->close ();
+			break;
+		}
 	}
 }
 
-void bubble::sort () {
+// lines
+
+void bubble::sortlines () {
 	if (left > 0) {
 		if (line[counter].height < line[counter + 1].height) {
 			currenth = line[counter].height;
@@ -69,19 +84,43 @@ void bubble::sort () {
 	}
 }
 
-void bubble::cmemory () {
-	delete window;
-	delete event;
-	delete[] line;
-	delete rectangle;
+void bubble::initlines () {
+	rectangle->setFillColor (sf::Color::Green);
+	rectangle->setRotation (180);
+	for (int i = 0; i < n; i++) {
+		randomh = 1 + rand () % (n);
+		line[i].posx = i;
+		line[i].height = randomh;
+	}
 }
 
-void bubble::events () {
-	while (window->pollEvent (*event)) {
-		switch (event->type) {
-		case sf::Event::Closed:
-			window->close ();
-			break;
-		}
+void bubble::renderlines () {
+	for (int i = 0; i < n; i++) {
+		rectangle->setPosition (line[i].posx + line[i - 1].posx + 1, n);
+		rectangle->setSize (sf::Vector2f (1, line[i].height));
+		window->draw (*rectangle);
 	}
+	if (counter >= left) {
+		counter = 0;
+		left--;
+	}
+	counter++;
+}
+
+// user interface
+
+void bubble::updateui () {
+	if (left >= 0) {
+		text.at (1).setString ("left = " + std::to_string (left));
+	}
+}
+
+void bubble::initui () {
+	text.push_back (_ui->newtext ("n = " + std::to_string (n), 10, 0)); // 0
+	text.push_back (_ui->newtext (&left, 10, 12)); // 1
+	text.push_back (_ui->newtext ("input 0 to exit", 10, 24)); // 2
+}
+
+void bubble::renderui () {
+	for (int i = 0; i < text.size (); i++) window->draw (text.at (i));
 }
