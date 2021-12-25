@@ -6,7 +6,6 @@ bubble::bubble () {
 	randomh = 0;
 	currenth = 0;
 	left = 0;
-	event = new sf::Event;
 	rectangle = new sf::RectangleShape;
 	_ui = new ui;
 }
@@ -15,10 +14,10 @@ bubble::bubble () {
 
 void bubble::update () {
 	while (window->isOpen ()) {
-		sortlines ();
-		updateui ();
-		render ();
 		events ();
+		updateui ();
+		sortlines ();		
+		render ();			
 	}
 }
 
@@ -39,9 +38,9 @@ int bubble::input () {
 	}
 }
 
-void bubble::init () {
-	initui ();
+void bubble::init () {	
 	initlines ();
+	initui ();	
 }
 
 // engine
@@ -55,19 +54,18 @@ void bubble::render () {
 
 void bubble::cmemory () {
 	delete window;
-	delete event;
 	delete[] line;
 	delete[] rectangle;
 	delete _ui;
 }
 
 void bubble::events () {
-	while (window->pollEvent (*event)) {
-		switch (event->type) {
-		case sf::Event::Closed:
-			text.clear ();
+	while (window->pollEvent (event)) {
+		switch (event.type) {
+		case sf::Event::Closed:			
 			window->close ();
-			break;
+			text.clear ();
+		break;
 		}
 	}
 }
@@ -110,7 +108,7 @@ void bubble::renderlines () {
 // user interface
 
 void bubble::updateui () {
-	if (left >= 0) {
+	if (left >= 0 && window->isOpen()) {
 		text.at (1).setString ("left = " + std::to_string (left));
 	}
 }

@@ -4,7 +4,7 @@
 class ui {
 private:
 	sf::Text* text;
-	sf::Font* font;
+	sf::Font font;
 public:
 	ui ();
 	sf::Text newtext (int*, int, int);

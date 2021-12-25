@@ -8,11 +8,11 @@ private:
 	int counter, randomh, currenth, left; // other variables
 	struct data { int height, posx; }; // struct data
 	sf::RenderWindow* window; // sfml window
-	sf::Event* event; // event obj
+	sf::Event event; // event obj
 	sf::RectangleShape* rectangle; // rectangle for drawing lines
 	data* line; // data for lines
 	std::vector<sf::Text> text; // text vector
-	ui * _ui; // user interface obj
+	ui* _ui; // user interface obj
 
 public:
 	bubble (); // constructor
@@ -28,12 +28,11 @@ public:
 	void render (); // rendering 
 	void events (); // handling events
 	void cmemory (); // clearing memory\
-
 	// lines
 	void renderlines (); // rendering lines
 	void initlines (); //initialization lines
 	void sortlines (); // bubble sort lines
-	
+
 	// user interface
 
 	void updateui (); // updating ui
