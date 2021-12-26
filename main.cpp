@@ -3,10 +3,9 @@
 int main () {
 	srand (time (NULL));
 	bubble* _bubble = new bubble;
-	while (_bubble->input () != 0) {		
+	while (_bubble->input () != 0) {	
 		_bubble->init ();
 		_bubble->update ();
 	}	
-	_bubble->cmemory ();
 	return 0;
 }

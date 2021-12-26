@@ -6,22 +6,21 @@ bubble::bubble () {
 	randomh = 0;
 	currenth = 0;
 	left = 0;
-	rectangle = new sf::RectangleShape;
-	_ui = new ui;
 }
 
 // main
 
 void bubble::update () {
 	while (window->isOpen ()) {
+		updateui ();		
+		sortlines ();
 		events ();
-		updateui ();
-		sortlines ();		
-		render ();			
-	}
+		render ();
+	}	
 }
 
 int bubble::input () {
+	
 	std::cout << "Input\t";
 	std::cin >> n;
 	if (std::cin.fail () || !(n > 63 && n < 513 || n == 0)) {
@@ -29,11 +28,11 @@ int bubble::input () {
 		std::cin.ignore (std::numeric_limits <std::streamsize> ::max (), '\n');
 		input ();
 	}
-	else {
+	else {	
 		delete window;
 		left = n;
-		window = new sf::RenderWindow (sf::VideoMode (n * 2, n), "bubble-sort", sf::Style::Close);
 		line = new data[n];
+		window = new sf::RenderWindow (sf::VideoMode (n * 2, n), "bubble-sort", sf::Style::Close);		
 		return n;
 	}
 }
@@ -52,21 +51,13 @@ void bubble::render () {
 	window->display ();
 }
 
-void bubble::cmemory () {
-	delete window;
-	delete[] line;
-	delete[] rectangle;
-	delete _ui;
-}
-
 void bubble::events () {
 	while (window->pollEvent (event)) {
-		switch (event.type) {
-		case sf::Event::Closed:			
+		if (event.type == sf::Event::Closed) {
 			window->close ();
+			left = 0;
 			text.clear ();
-		break;
-		}
+		}		
 	}
 }
 
@@ -82,9 +73,9 @@ void bubble::sortlines () {
 	}
 }
 
-void bubble::initlines () {
-	rectangle->setFillColor (sf::Color::Green);
-	rectangle->setRotation (180);
+void bubble::initlines () {	
+	rectangle.setFillColor (sf::Color::Green);
+	rectangle.setRotation (180);
 	for (int i = 0; i < n; i++) {
 		randomh = 1 + rand () % (n);
 		line[i].posx = i;
@@ -94,9 +85,9 @@ void bubble::initlines () {
 
 void bubble::renderlines () {
 	for (int i = 0; i < n; i++) {
-		rectangle->setPosition (line[i].posx + line[i - 1].posx + 1, n);
-		rectangle->setSize (sf::Vector2f (1, line[i].height));
-		window->draw (*rectangle);
+		rectangle.setPosition (line[i].posx + line[i - 1].posx + 1, n);
+		rectangle.setSize (sf::Vector2f (1, line[i].height));
+		window->draw (rectangle);
 	}
 	if (counter >= left) {
 		counter = 0;
@@ -108,15 +99,16 @@ void bubble::renderlines () {
 // user interface
 
 void bubble::updateui () {
-	if (left >= 0 && window->isOpen()) {
+	if (left > -1 && window->isOpen()) {
+		text.at (0).setString ("n = " + std::to_string (n));
 		text.at (1).setString ("left = " + std::to_string (left));
 	}
 }
 
 void bubble::initui () {
-	text.push_back (_ui->newtext ("n = " + std::to_string (n), 10, 0)); // 0
-	text.push_back (_ui->newtext (&left, 10, 12)); // 1
-	text.push_back (_ui->newtext ("input 0 to exit", 10, 24)); // 2
+	text.push_back (_ui.newtext ("n = " + std::to_string (n), 10, 0)); // 0
+	text.push_back (_ui.newtext (&left, 10, 12)); // 1
+	text.push_back (_ui.newtext ("input 0 to exit", 10, 24)); // 2
 }
 
 void bubble::renderui () {
